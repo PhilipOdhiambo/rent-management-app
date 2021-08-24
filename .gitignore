@@ -5,7 +5,5 @@
 .settings/
 rent-management-app.iml
 bin/
-gradle/
-gradlew/
-gradlew.bat
-settings.gradle/
+build/
+rent-management-app.iml
