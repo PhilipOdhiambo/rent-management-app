@@ -3,7 +3,7 @@
 .gradle/
 .idea/
 .settings/
-.rent-management-app.iml
+rent-management-app.iml
 bin/
 gradle/
 gradlew/
