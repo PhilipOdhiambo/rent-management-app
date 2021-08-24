@@ -31,7 +31,10 @@ class Sql2oPropertyDao implements PropertyDao {
 
     @Override
     public List<Property> getAll() {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM properties")
+                    .executeAndFetch(Property.class);
+        }
     }
 
     @Override

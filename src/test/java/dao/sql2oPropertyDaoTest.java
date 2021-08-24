@@ -35,6 +35,13 @@ class sql2oPropertyDaoTest {
         assertNotEquals(0, property.getId());
     }
 
+    @Test
+    void addedPropertiesAreReturnedFromGetAll() {
+        Property property = setupProperty();
+        propertyDao.add(property);
+        assertEquals(1, propertyDao.getAll().size());
+    }
+
     //helper
     private Property setupProperty() {
         return new Property("Atlantic Edge", "Apartment", "Karen", "five bedroom", 30000 );
