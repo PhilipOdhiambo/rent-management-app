@@ -1,7 +1,9 @@
 package dao;
 
 import models.Property;
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
 import java.util.List;
 
@@ -15,7 +17,16 @@ class Sql2oPropertyDao implements PropertyDao {
 
     @Override
     public void add(Property property) {
-
+        String sql = "INSERT INTO properties (name, type, location, description, rent) VALUES (:name, :type, :location, :description, :rent)";
+        try (Connection con = sql2o.open()) {
+            int id = (int) con.createQuery(sql, true)
+                    .bind(property)
+                    .executeUpdate()
+                    .getKey();
+            property.setId(id);
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 
     @Override
