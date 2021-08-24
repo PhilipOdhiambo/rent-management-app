@@ -1,0 +1,11 @@
+.classpath
+.project
+.gradle/
+.idea/
+.settings/
+rent-management-app.iml
+bin/
+gradle/
+gradlew/
+gradlew.bat
+settings.gradle/
