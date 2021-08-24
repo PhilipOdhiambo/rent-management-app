@@ -16,6 +16,8 @@ dependencies {
     implementation 'org.sql2o:sql2o:1.6.0'
     implementation group: 'com.h2database', name: 'h2', version: '1.4.191'
     implementation 'org.postgresql:postgresql:42.2.23'
+    implementation 'com.google.code.gson:gson:2.5'
+    implementation "com.sparkjava:spark-core:2.6.0"
 }
 
 test {

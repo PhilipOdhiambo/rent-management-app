@@ -7,7 +7,7 @@ import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-class Sql2oPropertyDao implements PropertyDao {
+public class Sql2oPropertyDao implements PropertyDao {
     private final Sql2o sql2o;
 
 
@@ -71,7 +71,7 @@ class Sql2oPropertyDao implements PropertyDao {
             con.createQuery(sql)
                     .addParameter("id", id)
                     .executeUpdate();
-        } catch (Sql2oException ex){
+        } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }
