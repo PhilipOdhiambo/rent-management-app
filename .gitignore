@@ -7,6 +7,6 @@ bin/
 gradle/
 gradlew/
 gradlew.bat
-settings.gradle/
+settings.gradle
 build/
 build.gradle
