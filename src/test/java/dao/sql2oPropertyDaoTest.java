@@ -31,6 +31,7 @@ class sql2oPropertyDaoTest {
     @Test
     void addingPropertySetsId() {
         Property property = setupProperty();
+        propertyDao.add(property);
         assertNotEquals(0, property.getId());
     }
 
