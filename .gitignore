@@ -4,11 +4,5 @@
 .idea/
 .settings/
 bin/
-gradle/
-gradlew/
-gradlew
-gradlew.bat
-settings.gradle
 build/
-build.gradle
 rent-management-app.iml
