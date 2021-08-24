@@ -10,6 +10,7 @@ public class Tenant {
     private int propertyId;
 
     public Tenant(String name, String phoneNumber, int propertyId) {
+        this.id =id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.propertyId = propertyId;
