@@ -39,21 +39,50 @@ class Sql2oPropertyDao implements PropertyDao {
 
     @Override
     public Property findById(int id) {
-        return null;
+        try (Connection con = sql2o.open()) {
+            return con.createQuery("SELECT * FROM properties WHERE id = :id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Property.class);
+        }
     }
 
     @Override
     public void update(int id, String name, String type, String location, String description, int rent) {
+        String sql = "UPDATE properties SET (name, type, location, description, rent) = (:name, :type, :location, :description, :rent) WHERE id=:id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("name", name)
+                    .addParameter("type", type)
+                    .addParameter("location", location)
+                    .addParameter("description", description)
+                    .addParameter("rent", rent)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
 
     }
 
     @Override
     public void deleteById(int id) {
-
+        String sql = "DELETE from properties WHERE id = :id";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
 
     @Override
     public void clearAll() {
-
+        String sql = "DELETE from properties";
+        try (Connection con = sql2o.open()) {
+            con.createQuery(sql).executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
     }
 }
