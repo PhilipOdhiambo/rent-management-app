@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dao.Sql2oTenantDaoTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-08-24T15:09:19" hostname="issah-HP-Pavilion-Notebook" time="0.384">
+<testsuite name="dao.Sql2oTenantDaoTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-08-24T15:33:00" hostname="issah-HP-Pavilion-Notebook" time="0.98">
   <properties/>
-  <testcase name="addingTenantSetsId()" classname="dao.Sql2oTenantDaoTest" time="0.306"/>
-  <testcase name="getAllTenants()" classname="dao.Sql2oTenantDaoTest" time="0.015"/>
-  <testcase name="clearAll()" classname="dao.Sql2oTenantDaoTest" time="0.017"/>
-  <testcase name="deleteTenantById()" classname="dao.Sql2oTenantDaoTest" time="0.012"/>
-  <testcase name="updateTenantInfo()" classname="dao.Sql2oTenantDaoTest" time="0.014"/>
-  <testcase name="findTenantById()" classname="dao.Sql2oTenantDaoTest" time="0.011"/>
+  <testcase name="addingTenantSetsId()" classname="dao.Sql2oTenantDaoTest" time="0.693"/>
+  <testcase name="getAllTenants()" classname="dao.Sql2oTenantDaoTest" time="0.048"/>
+  <testcase name="clearAll()" classname="dao.Sql2oTenantDaoTest" time="0.049"/>
+  <testcase name="deleteTenantById()" classname="dao.Sql2oTenantDaoTest" time="0.073"/>
+  <testcase name="updateTenantInfo()" classname="dao.Sql2oTenantDaoTest" time="0.031"/>
+  <testcase name="findTenantById()" classname="dao.Sql2oTenantDaoTest" time="0.062"/>
   <system-out><![CDATA[connection closed
 connection closed
 connection closed
