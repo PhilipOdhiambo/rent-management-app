@@ -1,6 +1,7 @@
 package dao;
 
 
+import models.Payment;
 import models.Tenant;
 
 import org.sql2o.Connection;
@@ -44,6 +45,16 @@ public class Sql2oTenantDao implements TenantDao{
             return con.createQuery("SELECT * FROM tenants WHERE id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Tenant.class);
+        }
+    }
+
+    @Override
+    public List<Payment> getPaymentDetailsById(int id) {
+        String sql ="SELECT * FROM payments WHERE tenantid = :id";
+        try(Connection con = sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("id",id)
+                    .executeAndFetch(Payment.class);
         }
     }
 
