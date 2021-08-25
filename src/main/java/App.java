@@ -10,6 +10,7 @@ import models.Property;
 import models.Tenant;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import spark.Spark;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,26 @@ public class App {
         propertyDao = new Sql2oPropertyDao(sql2o);
         tenantDao = new Sql2oTenantDao(sql2o);
         paymentDao = new Sql2oPaymentDao(sql2o);
+
+        Spark.options("/*", (request, response) -> {
+
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+            return "OK";
+        });
+
+        Spark.before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+        });
+
+
 
 
         //READ
@@ -129,7 +150,7 @@ public class App {
         // DELETE
 
         //FILTERS
-        /*
+/*
         exception(ApiException.class, (exception, req, res) -> {
             ApiException err = exception;
             Map<String, Object> jsonMap = new HashMap<>();
@@ -138,7 +159,9 @@ public class App {
             res.type("application/json");
             res.status(err.getStatusCode());
             res.body(gson.toJson(jsonMap));
-        });*/
+        });
+
+ */
 
 
         after((req, res) ->{
