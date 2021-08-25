@@ -40,4 +40,7 @@ public class Property {
         return rent;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
