@@ -17,3 +17,13 @@ CREATE TABLE IF NOT EXISTS properties (
  rent INTEGER
 );
 
+CREATE TABLE IF NOT EXISTS payments (
+ id int PRIMARY KEY auto_increment,
+ propertyid INTEGER,
+ tenantid INTEGER,
+ amount int,
+ paidby VARCHAR,
+ date TIMESTAMP
+);
+
+
