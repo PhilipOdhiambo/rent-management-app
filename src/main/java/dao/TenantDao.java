@@ -1,5 +1,6 @@
 package dao;
 
+import models.Payment;
 import models.Tenant;
 
 import java.util.List;
@@ -12,7 +13,8 @@ public interface TenantDao {
     //read tenants from database
     List<Tenant> getAllTenants();
     Tenant findTenantById(int id);
-    //List<Tenant> getAllTenantsByPropertyId(int propertyId);
+
+    List<Payment> getPaymentDetailsById(int id);
 
     //Update
     void updateTenantInfo(int id,String name,String phoneNumber,int propertyId);
