@@ -1,7 +1,11 @@
+import static spark.Spark.*;
+
 import com.google.gson.Gson;
+import dao.Sql2oPaymentDao;
 import dao.Sql2oPropertyDao;
 import dao.Sql2oTenantDao;
 import exceptions.ApiException;
+import models.Payment;
 import models.Property;
 import models.Tenant;
 import org.sql2o.Connection;
@@ -13,19 +17,34 @@ import java.util.Map;
 import static spark.Spark.*;
 
 public class App {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
     public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+        staticFileLocation("/public");
 
         Sql2oPropertyDao propertyDao;
         Sql2oTenantDao tenantDao;
+        Sql2oPaymentDao paymentDao;
         Connection conn;
         Gson gson = new Gson();
 
-        staticFileLocation("/public");
-        String connectionString = "jdbc:h2:~/jadle.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+        //postgres://urjtfsaqjmosyk:b7f301231b92f36726c2c05612873906d1363734f876ffabcff80a65f3e1d14b@ec2-35-153-91-18.compute-1.amazonaws.com:5432/d200amuh98noo0
+
+        //String connectionString = "jdbc:postgresql://localhost:5432/rent_management"; //connect to Organization_Portal, not Organization_Portal_test!
+        //Sql2o sql2o = new Sql2o(connectionString, "damark", "password");
+
+        String connectionString = "jdbc:postgresql://ec2-35-153-91-18.compute-1.amazonaws.com:5432/d200amuh98noo0"; //connect to Organization_Portal, not Organization_Portal_test!
+        Sql2o sql2o = new Sql2o(connectionString, "urjtfsaqjmosyk", "b7f301231b92f36726c2c05612873906d1363734f876ffabcff80a65f3e1d14b");
 
         propertyDao = new Sql2oPropertyDao(sql2o);
         tenantDao = new Sql2oTenantDao(sql2o);
+        paymentDao = new Sql2oPaymentDao(sql2o);
 
 
         //READ
@@ -86,7 +105,31 @@ public class App {
             return gson.toJson(tenant);
         });
 
+        /*  -----------------------  Payment Routes  ------------------------------- */
+
+        // CREATE
+
+        //create new payment
+        post("/payments/new","application/json",(req,res) -> {
+            Payment payment = gson.fromJson(req.body(), Payment.class);
+            paymentDao.add(payment);
+            res.status(201);
+            return gson.toJson(payment);
+        });
+        // READ
+        //READ payments
+        get("/payments", "application/json", (req, res) -> {
+            if(paymentDao.getAll().size() > 0){
+                return gson.toJson(paymentDao.getAll());
+            } else {
+                return "{\"message\":\"I'm sorry, but no payments are currently listed in the database.\"}";
+            }
+        });
+        // UPDATE
+        // DELETE
+
         //FILTERS
+        /*
         exception(ApiException.class, (exception, req, res) -> {
             ApiException err = exception;
             Map<String, Object> jsonMap = new HashMap<>();
@@ -95,7 +138,7 @@ public class App {
             res.type("application/json");
             res.status(err.getStatusCode());
             res.body(gson.toJson(jsonMap));
-        });
+        });*/
 
 
         after((req, res) ->{
